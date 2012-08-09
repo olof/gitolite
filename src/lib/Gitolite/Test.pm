@@ -37,6 +37,17 @@ use warnings;
 
 # ----------------------------------------------------------------------
 
+# make sure the user is ready for it
+if (not $ENV{GITOLITE_TEST} or $ENV{GITOLITE_TEST} ne 'y') {
+    print STDERR << 'EOF';
+
+Error: The tests are destructive to your environment and should
+Error: be run from a throw away userid. When you are ready, set
+Error: the environment variable GITOLITE_TEST=y and run again.
+EOF
+    exit 1;
+}
+
 # required preamble for all tests
 try "
     DEF gsh = /TRACE: gsh.SOC=/
